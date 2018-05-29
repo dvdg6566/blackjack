@@ -2,6 +2,8 @@
 Blackjack app with dynamic bustscore
 Desgined to accept bustscores between the range 20-26
 Automated re-shuffling of deck when deck runs out
+Built with Facebook's React Native Framework
+Running: run create-react-native-app via yarn or npm. Paste the files "app.js" and folder components in and then run "yarn start" or "npm start" in the command line. 
 
 Features
 __________
