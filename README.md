@@ -43,6 +43,7 @@ Caluclations:
 	Aces are by default taken to be 11.
 
 	In the event that the player busts, if he had drawn and ace, he would minus 10 from his score. 
+	
 	For the dealer's hand, aces are defaulted to be 11. He will stand when appropriate according to this. If he does not bust, then his score will be taken at face value
 	If he busts, then he will use his ace(s) as 1. 
 
