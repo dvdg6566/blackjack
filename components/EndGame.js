@@ -22,11 +22,11 @@ export class EndGame extends React.Component{
 
 	map = () => {
 		if (this.props.player === this.props.dealer){
-			return ["         Draw","",64,64]
+			return ["         Draw","",88,88]
 		}
 
 		else if (this.props.player === this.props.bust){
-			return ["     You Win","    Blackjack",64,64]
+			return ["        You Win","    Blackjack",64,64]
 		}
 
 		else if (this.props.dealer === this.props.bust){
@@ -38,7 +38,7 @@ export class EndGame extends React.Component{
 		}
 
 		else if (this.props.dealer === -1){
-			return ["     You Win","  Dealer Busted",64,54]
+			return ["    You Win","  Dealer Busted",64,54]
 		}
 
 		else if (this.props.player > this.props.dealer){
@@ -59,8 +59,8 @@ export class EndGame extends React.Component{
 		  >
 		  <View style={{flexDirection:'column', flex:1, backgroundColor:'#007400'}}>
 		  		<Text style={styles.hold}></Text>
-		  		<Text style={{flex:2,fontSize:x[2],color:'black',backgroundColor:'#007400'}}>{x[0]}</Text>
-		  		<Text style={{flex:2,fontSize:x[3],color:'black',backgroundColor:'#007400'}}>{x[1]}</Text>
+		  		<Text style={{flex:2,fontSize:x[2],color:'#DDDDDD',backgroundColor:'#007400'}}>{x[0]}</Text>
+		  		<Text style={{flex:2,fontSize:x[3],color:'#DDDDDD',backgroundColor:'#007400'}}>{x[1]}</Text>
 		  		<Text style={styles.hold}></Text>
 		  		<Text style={styles.ply}>{this.cvt(this.props.player,true)}</Text>
 		  		<Text style={styles.dlr}>{this.cvt(this.props.dealer,false)}</Text>
@@ -70,7 +70,7 @@ export class EndGame extends React.Component{
 			          style = {styles.btn}
 			          onPress={this.props.update}
 			        >
-			        <Text style={{fontSize:48,backgroundColor:'#009900',color:'black'}}>    New Game({this.props.bs})</Text>
+			        <Text style={{fontSize:48,backgroundColor:'#009900',color:'white'}}>    New Game({this.props.bs})</Text>
 			        </TouchableOpacity>
 		        </View>
 		        <View style={{flex:2,flexDirection:'row'}}>
@@ -109,11 +109,12 @@ const styles = StyleSheet.create({
 		flex:2,
 		backgroundColor:'#990000',
 		fontSize:48,
+		color:'#DDDDDD'
 	},dlr:{
 		flex:2,
 		backgroundColor:'#660000',
 		fontSize:48,
-		color:'white'
+		color: '#DDDDDD'
 	}
 
 

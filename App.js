@@ -11,6 +11,23 @@ import { shuffle } from  'underscore'
 console.disableYellowBox = 1
 
 export default class App extends React.Component {
+
+  /*
+  Initialisation of state to default arrangement
+  Cardlist: List of cards. Originally shuffled with 10 decks stacked on top of each other (no interaction between decks)
+  Bustscore: Custom bustscore from player
+  modalOpen: True at the start of the game to initialise "./componenets/modal.js"
+  Player and dealer arrays store cards of player and dealer
+  gameover controls opening of "./componenets/endGame.js" 
+  player tot and dealer tot are the total of the player and dealer respectively taking all aces as 11
+  player dbl and dealer low are the total of the player and dealer respectively taking 1 ace as 1 and any others as 11.
+  player dbl and dealer dbl are the total of the player and dealer respectively taking 2 aces as 1
+  We assume players CANNOT DRAW 3 ACES
+  status: Status shown in the middle
+  gamecnt: ensure no setTimeout errors occur betweeen games.
+  earlycall: initiate early updates while delaying "./componenets/endGame.js"
+  */
+
   state = {
     cardlist:[],
     bustScore:0,
@@ -79,6 +96,8 @@ export default class App extends React.Component {
         a.push(i)
       }
       a = shuffle(a)
+      // a is a random shuffled deck. 
+      // cd stores a stack of decks that DO NOT HAVE ANY INTERACTION
       cd = cd.concat(a)
     }
     this.setState({
@@ -94,6 +113,8 @@ export default class App extends React.Component {
 
 
   cnv = (x) => {
+    // x is the card ID. 
+    // converts to value: 11 if ace or normal value for other cards.
     x = x%13
     if (x === 0){return 10}
     else if (x === 1){return 11}
@@ -119,9 +140,12 @@ export default class App extends React.Component {
   DealerOnly = () => {
     let t = this.state.gamecnt
     for (let i = 1; i < 5; ++i){
+      // We claim the dealer can have at most 4+2=6 cards. 
       setTimeout(() => {
         if (t === this.state.gamecnt && this.state.earlycall === false){
+          // else the game is already over
           if (this.state.dealertot >= this.state.playertot && this.state.dealertot >= this.state.bustScore-5){
+            // Dealer has already won
             this.setState({
               earlycall:true,
             })
@@ -145,6 +169,7 @@ export default class App extends React.Component {
 
               setTimeout( () => {
                 if (tot === this.state.bustScore){
+                  // Dealer blackjacks and wins
                   this.setState({
                     earlycall:true,
                     dealertot:tot,
@@ -156,6 +181,7 @@ export default class App extends React.Component {
                   },400)
                 }
                 else if (tot > this.state.bustScore){
+                  // Dealer busts but could have aces
                   setTimeout(() => {
                     this.setState({
                       earlycall:true
@@ -166,6 +192,7 @@ export default class App extends React.Component {
                       })
                     },400)
                     if (this.state.dealertot === this.state.dealerlow){
+                      // No aces
                       this.setState({dealertot:this.state.dealerlow})
                     }
                     else{
@@ -174,11 +201,13 @@ export default class App extends React.Component {
                   },20)
                 }
                 else {
+                  // Normal drawn card
                   this.setState({
                     dealertot:tot,
                     dealerlow:tot,
                   })
                   setTimeout( () => {
+                    // If ace we set dealerlow
                     if (this.cnv(a) === 11){
                       this.setState({
                         dealerlow:tot-10
@@ -235,6 +264,7 @@ export default class App extends React.Component {
       }
       setTimeout(() => {
         if (tot === this.state.bustScore){
+          // Player blackjacked
           this.setState({
             status:'                                 Player Blackjack                                   ',
             earlycall:true,
@@ -248,6 +278,7 @@ export default class App extends React.Component {
 
         else if (tot > this.state.bustScore){
           if (this.state.playertot === this.state.playerlow){
+            // Player busted as no aces have been drawn
             this.setState({
               status:'                                 Player Busted                                   ',
               earlycall:true,
@@ -402,6 +433,7 @@ export default class App extends React.Component {
     setTimeout(() => {
       this.state.cardlist = a
       if (this.state.dealertot === this.state.bustScore && this.state.playertot === this.state.bustScore){
+        // Both player and dealer blackjacked. Draw. 
         this.setState({
           status:'                  Player and Dealer Blackjack                                    ',
           earlycall:true,
@@ -414,6 +446,7 @@ export default class App extends React.Component {
         },400)
       }
       else if (this.state.dealertot === this.state.bustScore){
+        // Only dealer blackjacked. Player loses.
         this.setState({
           status:'                                  Dealer Blackjack                                    ',
           earlycall:true,
@@ -426,6 +459,7 @@ export default class App extends React.Component {
         },400)
       }
       else if (this.state.playertot === this.state.bustScore){
+        // Only player blackjacked. Player wins.
         this.setState({
           status:'                                  Player Blackjack                                    ',
           earlycall:true,
