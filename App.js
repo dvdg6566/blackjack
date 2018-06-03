@@ -504,7 +504,7 @@ export default class App extends React.Component {
         ></EndGame>
         <View style={{flex:2}} />
         <Dealer />
-        <View style={{flex:6}} />
+        <View style={{flex:10}} />
         <CardPanel 
           arr={this.state.dealer}
           dlr={1}

@@ -51,7 +51,7 @@ export default CardPanel
 const styles = StyleSheet.create({
 	container:{
 		backgroundColor:'#990000',
-		flex:4,
+		flex:6,
 		flexDirection:'row',
 		alignItems:'flex-start',
 	}
