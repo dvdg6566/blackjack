@@ -22,32 +22,32 @@ export class EndGame extends React.Component{
 
 	map = () => {
 		if (this.props.player === this.props.dealer){
-			return ["         Draw","",88,88]
-		}
+			return ["      Draw","",80,80]
+		} //OK
 
 		else if (this.props.player === this.props.bust){
-			return ["        You Win","    Blackjack",64,64]
-		}
+			return ["      You Win","    Blackjack",64,64]
+		} //OK
 
 		else if (this.props.dealer === this.props.bust){
-			return ["    You Lose","  Dealer Blackjack",64,48]
-		}
+			return ["      You Lose","  Dealer Blackjack",60,48]
+		} //OK
 
 		else if (this.props.player === -1){
 			return ["    You Lose","      Busted",64,64]
-		}
+		} // OK
 
 		else if (this.props.dealer === -1){
-			return ["    You Win","  Dealer Busted",64,54]
+			return ["     You Win","  Dealer Busted",64,54]
 		}
 
 		else if (this.props.player > this.props.dealer){
-			return ["    You Win"," Higher Score",64,64]
+			return ["      You Win"," Higher Score",64,64]
 		}
 
 		else {
 			return ["     You Lose","  Lower Score",64,64]
-		}
+		} // OK
 	}
 
 	render = () =>{
